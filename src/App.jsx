@@ -1,5 +1,6 @@
 import Footer from './components/Footer/Footer'
 import Home from './components/Home/Home'
+import LoginCliente from './components/LoginCliente/LoginCliente'
 import Navbar from './components/Navbar/Navbar'
 import RegistroCliente from './components/RegistroCliente/RegistroCliente'
 import './index.css'
@@ -10,7 +11,8 @@ function App() {
     <div className="min-h-screen grid grid-rows-[auto_1fr_auto]">
       <Navbar />
       {/* <Home /> */}
-      <RegistroCliente />
+      <LoginCliente />
+      {/* <RegistroCliente /> */}
       <Footer />
     </div>
   )
