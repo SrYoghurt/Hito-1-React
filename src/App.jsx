@@ -1,3 +1,4 @@
+import Cart from './components/Cart/Cart'
 import Footer from './components/Footer/Footer'
 import Home from './components/Home/Home'
 import LoginCliente from './components/LoginCliente/LoginCliente'
@@ -10,8 +11,9 @@ function App() {
   return (
     <div className="min-h-screen grid grid-rows-[auto_1fr_auto]">
       <Navbar />
+      <Cart/>
       {/* <Home /> */}
-      <LoginCliente />
+      {/* <LoginCliente /> */}
       {/* <RegistroCliente /> */}
       <Footer />
     </div>
