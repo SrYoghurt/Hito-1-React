@@ -1,5 +1,5 @@
 import { UserIcon, ShoppingCartIcon, KeyIcon, LockClosedIcon, LockOpenIcon } from "@heroicons/react/16/solid"
-import { formatearPrecio } from "../../utils/formatearPrecios";
+import { formatearPrecio } from "../../utils/funciones";
 
 export default function Navbar() {
     const total = 25000;

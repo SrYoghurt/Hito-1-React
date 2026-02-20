@@ -12,11 +12,11 @@ function App() {
   return (
     <div className="min-h-screen grid grid-rows-[auto_1fr_auto]">
       <Navbar />
-      <Pizza />
+      {/* <Pizza /> */}
       {/* <Cart/> */}
       {/* <Home /> */}
-      {/* <LoginCliente /> */}
-      {/* <RegistroCliente /> */}
+      <LoginCliente />
+      <RegistroCliente />
       <Footer />
     </div>
   )

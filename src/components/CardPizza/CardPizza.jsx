@@ -1,5 +1,5 @@
 import { ArrowTopRightOnSquareIcon, ShoppingCartIcon } from "@heroicons/react/16/solid"
-import { formatearPrecio } from "../../utils/formatearPrecios"
+import { formatearPrecio } from "../../utils/funciones"
 
 export default function Cardpizza({ nombre, precio, ingredientes, img }) {
   return (
@@ -13,7 +13,7 @@ export default function Cardpizza({ nombre, precio, ingredientes, img }) {
           </ul>
       </div>
       <div className="flex flex-col">
-        <p className="flex justify-center font-semibold">Precio:{formatearPrecio(precio)}</p>
+        <p className="flex justify-center font-semibold">Precio: <span className="text-green-500">{formatearPrecio(precio)}</span> </p>
         <div className="flex justify-center align-middle">
           <button className="bg-amber rounded-sm px-2 py-1 hover:bg-gray-500 hover:text-amber-50 flex  items-center gap-1 hover:cursor-pointer">Ver más<ArrowTopRightOnSquareIcon className="size-4" /></button>
           <button className="bg-amber rounded-sm px-2 py-1 hover:bg-gray-500 hover:text-amber-50 flex  items-center gap-1 hover:cursor-pointer">Añadir<ShoppingCartIcon className="size-4" /></button>

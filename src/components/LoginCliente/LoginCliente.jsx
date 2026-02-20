@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { validate } from "../../utils/funciones";
+
 
 export default function LoginCliente() {
     const [usuario, setUsuario] = useState({
@@ -7,14 +9,6 @@ export default function LoginCliente() {
     });
     const [errors, setErrors] = useState({});
     const [success, setSuccess] = useState(false);
-
-    const validate = () => {
-        const errores = {};
-        const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRe.test(usuario.correo)) errores.correo = "Correo inválido";
-        if (!usuario.contraseña || usuario.contraseña.length < 6) errores.contraseña = "La contraseña debe tener al menos 6 caracteres";
-        return errores;
-    };
 
     const handleSubmit = (e) => {
         e.preventDefault();

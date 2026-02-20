@@ -1,6 +1,6 @@
 import { ArrowTopRightOnSquareIcon, ShoppingCartIcon } from "@heroicons/react/16/solid"
-import { formatearPrecio } from "../../utils/formatearPrecios"
-import React, { useState, useEffect } from 'react';
+import { formatearPrecio } from "../../utils/funciones"
+import  { useState, useEffect } from 'react';
 
 
 export default function Pizza() {

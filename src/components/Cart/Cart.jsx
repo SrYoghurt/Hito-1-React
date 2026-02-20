@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { pizzaCart as listadoPizzasCarrito } from "../../utils/pizzas"
 import CardCart from "./CardCart";
-import { formatearPrecio } from "../../utils/formatearPrecios";
+import { formatearPrecio } from "../../utils/funciones";
 
 export default function Cart() {
   const [pizzas, setPizzas] = useState(listadoPizzasCarrito);
