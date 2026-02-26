@@ -3,9 +3,9 @@ import { formatearPrecio } from "../../utils/funciones"
 
 export default function Cardpizza({ nombre, precio, ingredientes, img }) {
   return (
-    <div className="flex flex-col rounded-sm border-2 border-black text-black my-5 w-64 h-96">
+    <div className="flex flex-col rounded-sm border-2 border-black text-black my-5 w-64">
       <img className="object-cover h-50" src={img} alt="foto de pizza" />
-      <h3 className="ml-3 text-lg font-semibold py-1">{nombre}</h3>
+      <h3 className="ml-3 text-lg font-semibold py-1">{nombre.toUpperCase()}</h3>
       <div className="flex flex-col border-y-2 grow">
         <ul className="flex flex-wrap items-center ml-1" >  <span className="font-semibold">Ingredientes:</span> 
         {ingredientes.map((ingrediente, index) => (

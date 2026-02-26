@@ -9,7 +9,7 @@ export default function CardCart({img, nombre, precio, cantidad, aumentar, dismi
             />
             <div className="flex-1">
                 <h2 className="text-lg font-semibold text-black mb-1">
-                    {nombre}
+                    {nombre.toUpperCase()}
                 </h2>
                 <p className="text-lg font-bold text-black">
                     {precio}

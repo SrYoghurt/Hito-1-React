@@ -36,7 +36,7 @@ export default function Pizza() {
                     </div>
 
                     <div className="flex flex-col  grow items-center">
-                        <h3 className="ml-3 text-lg font-semibold py-1 items-center">{pizza?.name.toUpperCase()}</h3>
+                        <h3 className="ml-3 text-lg font-semibold py-1 items-center">{pizza?.name}</h3>
                         <ul className="flex flex-wrap items-center ml-1 border-y" >  
                             <span className="font-semibold">Ingredientes:</span>
                             {pizza?.ingredients?.map((ingrediente, index) => (

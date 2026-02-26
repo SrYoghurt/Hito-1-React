@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { pizzaCart as listadoPizzasCarrito } from "../../utils/pizzas"
-import CardCart from "./CardCart";
 import { formatearPrecio } from "../../utils/funciones";
+import CardCart from "./CardCart";
 
 export default function Cart() {
   const [pizzas, setPizzas] = useState(listadoPizzasCarrito);
@@ -46,7 +46,7 @@ export default function Cart() {
                 <div key={pizza.id}>
                   <CardCart
                     img={pizza.img}
-                    nombre={pizza.name}
+                    nombre={pizza.name.toUpperCase()}
                     precio={formatearPrecio(pizza.price)}
                     cantidad={pizza.count}
                     aumentar={() => incrementar(pizza.id)}
