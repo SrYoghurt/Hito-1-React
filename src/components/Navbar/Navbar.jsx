@@ -1,9 +1,10 @@
 import { UserIcon, ShoppingCartIcon, KeyIcon, LockClosedIcon, LockOpenIcon } from "@heroicons/react/16/solid"
 import { formatearPrecio } from "../../utils/funciones";
 import { Link } from "react-router-dom";
+import { useMyContext } from "../../context/CartContext";
 
 export default function Navbar() {
-
+    const { total, pizzas } = useMyContext();
     const token = true;
 
 
@@ -31,7 +32,11 @@ export default function Navbar() {
                     <Link to="/cart">
                         <button className="relative flex items-center gap-1 border rounded-sm m-1.5 p-1 hover:cursor-pointer group">
                             <ShoppingCartIcon className="size-5 text-white-700" />
-                            <span>Total: {formatearPrecio(25000)}</span>
+                            <span>Total: {formatearPrecio(total)}</span>
+                            {pizzas.length > 0 && (<span className="absolute -top-1 -right-1 bg-red-500 text-xs rounded-full px-1 text-white">
+                                    {pizzas.reduce((sum, p) => sum + p.count, 0)}
+                                </span>
+                            )}
                         </button>
                     </Link>
                 </div>

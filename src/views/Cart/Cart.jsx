@@ -1,40 +1,24 @@
-import { useState } from "react";
-import { pizzaCart as listadoPizzasCarrito } from "../../utils/pizzas"
+
 import { formatearPrecio } from "../../utils/funciones";
 import CardCart from "./CardCart";
+import { useMyContext } from "../../context/CartContext";
 
 export default function Cart() {
-  const [pizzas, setPizzas] = useState(listadoPizzasCarrito);
 
-  const incrementar = (id) => {
-    setPizzas(pizzas.map(pizza => 
-      pizza.id === id ? { ...pizza, count: pizza.count + 1 } : pizza
-    ));
-  };
+  const { pizzas, agregarPizza, incrementar, disminuir, limpiarCarrito, total, cantidadTotal } = useMyContext();
 
-  const disminuir = (id) => {
-    setPizzas(pizzas.filter(pizza => {
-      if (pizza.id === id) {
-        return pizza.count > 1;
-      }
-      return true;
-    }).map(pizza =>
-      pizza.id === id ? { ...pizza, count: pizza.count - 1 } : pizza
-    ));
-  };
 
-  const total = pizzas.reduce((sum, pizza) => sum + (pizza.price * pizza.count), 0);
 
   return (
+
     <div className="min-h-screen bg-amber-50 py-8 px-4">
       <div className="max-w-4xl mx-auto">
-
         <div className="mb-8">
           <h2 className="text-4xl font-bold text-black mb-2 dancing-script">
             Revisa tu carrito
           </h2>
           <p className="text-black text-opacity-70">
-            {pizzas.reduce((sum, pizza) => sum + pizza.count, 0)} {pizzas.reduce((sum, pizza) => sum + pizza.count, 0) === 1 ? 'pizza' : 'pizzas'} en tu carrito
+            {cantidadTotal} {cantidadTotal === 1 ? 'pizza' : 'pizzas'} en tu carrito
           </p>
         </div>
 
