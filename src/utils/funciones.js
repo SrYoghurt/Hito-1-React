@@ -1,9 +1,8 @@
-
 export const formatearPrecio = (precio) => {
     return new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP' }).format(precio);
 };
 
-export const validate = () => {
+export const validate = (usuario) => {
     const errores = {};
     const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRe.test(usuario.correo)) errores.correo = "Correo inválido";

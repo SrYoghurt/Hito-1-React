@@ -1,12 +1,13 @@
-
-import { formatearPrecio } from "../../utils/funciones";
-import CardCart from "./CardCart";
 import { useMyContext } from "../../context/CartContext";
+import { useUserContext } from "../../context/UserContext";
+import { formatearPrecio } from "../../utils/funciones";
+import { Link } from "react-router-dom";
+import CardCart from "./CardCart";
 
 export default function Cart() {
 
-  const { pizzas, agregarPizza, incrementar, disminuir, limpiarCarrito, total, cantidadTotal } = useMyContext();
-
+  const { pizzas, incrementar, disminuir, total, cantidadTotal } = useMyContext();
+  const { token } = useUserContext();
 
 
   return (
@@ -53,21 +54,38 @@ export default function Cart() {
               <span className="text-2xl font-bold text-black">
                 Total:
               </span>
-              <span className="text-3xl font-bold text-black">
+              <span className="text-3xl font-bold text-green-500">
                 {formatearPrecio(total)}
               </span>
             </div>
             <div className="flex gap-4">
-              <button className="flex-1 bg-amber rounded-sm px-4 py-3 font-bold text-black hover:bg-gray-500 hover:text-amber-50 transition-colors">
+              <Link to='/' ><button className="flex-1 bg-amber rounded-sm px-4 py-3 font-bold text-black hover:bg-gray-500 hover:text-amber-50 transition-colors">
                 ← Continuar comprando
-              </button>
-              <button className="flex-1 bg-amber rounded-sm px-4 py-3 font-bold text-black hover:bg-gray-500 hover:text-amber-50 transition-colors">
-                Proceder al pago →
+              </button></Link>
+              <button
+                disabled={!token}
+                onClick={() => {
+                  if (token) {
+                    alert(`¡Pago de ${formatearPrecio(total)} procesado! Gracias.`)
+                  }
+                }}
+                className={`flex-1 bg-amber rounded-sm px-4 py-3 font-bold text-black 
+              transition-colors${!token ? 'bg-gray-400 cursor-not-allowed text-gray-600' : 'bg-green-600 hover:bg-green-700 text-white'}`}>
+                {token ? 'Proceder al pago →' : 'Inicia sesión para pagar'}
               </button>
             </div>
+            {!token && (
+              <p className="text-center text-sm text-gray-600 mt-3">
+                <Link to="/login" className="text-blue-600 hover:underline font-medium">
+                  Ir a Login →
+                </Link>
+              </p>
+            )}
           </div>
         )}
+
       </div>
+
     </div>
   )
 }

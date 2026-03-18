@@ -8,31 +8,32 @@ import RegistroCliente from './views/RegistroCliente/RegistroCliente'
 import Footer from './components/Footer/Footer'
 import NotFound from './views/NotFound/NotFound'
 import Profile from './views/Profile/Profile'
-import { Route, Routes } from 'react-router-dom'
-import { MyContextProvider } from './context/CartContext'
-import { APIProvider } from './context/APIContext'
+import { Navigate, Route, Routes } from 'react-router-dom'
+import { useUserContext } from './context/UserContext'
+
+
 
 function App() {
-
+  const { token } = useUserContext()
+  console.log('App.jsx: token =', token)
   return (
     <div className="min-h-screen grid grid-rows-[auto_1fr_auto]">
-      <APIProvider>
-        <MyContextProvider>
-          <Navbar />
-          <Routes>
-            <Route path='/' element={<Home />}></Route>
-            <Route path='/pizza001' element={<Pizza />}></Route>
-            <Route path='/cart' element={<Cart />}></Route>
-            <Route path='/profile' element={<Profile />}></Route>
-            <Route path='/login' element={<LoginCliente />}></Route>
-            <Route path='/register' element={<RegistroCliente />}></Route>
-            <Route path='*' element={<NotFound />}></Route>
-          </Routes>
-          <Footer />
-        </MyContextProvider>
-      </APIProvider>
+      <Navbar />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/pizza/:id' element={<Pizza />} />
+        <Route path='/cart' element={<Cart />} />
+
+        <Route path='/profile' element={token ? <Profile /> : <Navigate to='/' />} />
+        <Route path='/login' element={token ? <Navigate to='/' replace /> : <LoginCliente />} />
+        <Route path='/register' element={token ? <Navigate to='/' replace /> : <RegistroCliente />} />
+
+        <Route path='*' element={<NotFound />} />
+      </Routes>
+      <Footer />
     </div>
   )
 }
 
 export default App
+

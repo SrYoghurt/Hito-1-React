@@ -1,59 +1,72 @@
-import { ArrowTopRightOnSquareIcon, ShoppingCartIcon } from "@heroicons/react/16/solid"
-import { formatearPrecio } from "../../utils/funciones"
-import  { useState, useEffect } from 'react';
-
+import { ArrowTopRightOnSquareIcon, ShoppingCartIcon } from "@heroicons/react/16/solid";
+import { formatearPrecio } from "../../utils/funciones";
+import { useMyContext } from "../../context/CartContext";  // ← AGREGAR
+import { Link, useParams } from "react-router-dom";
+import { useApiContext } from "../../context/APIContext";
 
 export default function Pizza() {
-    const [pizza, setPizza] = useState({});
-    const [error, setError] = useState(null);
+    const { pizzas, loading, error } = useApiContext();
+    const { id: idStr } = useParams();
+    const { agregarPizza } = useMyContext();
 
-    const consultarApi = async () => {
-        try {
-            const URL = 'http://localhost:5000/api/pizzas/p001';
-            const response = await fetch(URL);
-            const data = await response.json();
-            setPizza(data);
+    if (loading || !pizzas) return <div className="flex justify-center items-center min-h-screen text-4xl">Cargando Pizza...</div>;
+    if (error) return <div className="flex justify-center items-center min-h-screen text-red-500 text-4xl">{error}</div>;
 
-        } catch (error) {
-            console.error("Error fetching pizza:", error); 
-            setError("No pudimos cargar la pizza. Inténtalo de nuevo más tarde.");
-        }
-    }
+    const idNum = parseInt(idStr);
+    const pizza = pizzas.find(p => String(p.id) === idStr);
 
-    useEffect(() => {
-        
-        consultarApi();
-    }, [])
-
-    
-    return (
-        <div className="flex justify-center items-center min-h-screen  bg-amber-50">
-            {error ? (
-                <div className="text-red-500">{error}</div>
-            ) : pizza && (
-                    <div className="flex rounded-sm border-2 border-black text-black my-5 bg-amber-50 align-middle items-center max-w-2xl">
-        
-                    <div className="object-cover h-60 rounded  shadow-2xl w-full ">
-                        <img className="object-cover h-60 rounded  shadow-2xl w-full " src={pizza?.img} alt="foto de pizza" />
-                    </div>
-
-                    <div className="flex flex-col  grow items-center">
-                        <h3 className="ml-3 text-lg font-semibold py-1 items-center">{pizza?.name}</h3>
-                        <ul className="flex flex-wrap items-center ml-1 border-y" >  
-                            <span className="font-semibold">Ingredientes:</span>
-                            {pizza?.ingredients?.map((ingrediente, index) => (
-                                <li className="flex justify-center text-sm p-1.5" key={index}>{ingrediente}{index < pizza.ingredients.length - 1 ? ',' : '.'}</li>
-                            ))}
-                        </ul>
-                        <p className="text-center px-2 text-sm mt-2">{pizza?.desc}</p>
-                        <p className="text-center font-semibold mt-2 border-y">Precio: <span className="text-green-600">{formatearPrecio(pizza?.price)}</span></p>
-                        <div className="flex justify-center align-middle mt-2">
-                            <button className="bg-amber rounded-sm px-2 py-1 hover:bg-gray-500 hover:text-amber-50 flex items-center gap-1 hover:cursor-pointer">Ver más<ArrowTopRightOnSquareIcon className="size-4" /></button>
-                            <button className="bg-amber rounded-sm px-2 py-1 hover:bg-gray-500 hover:text-amber-50 flex items-center gap-1 hover:cursor-pointer">Añadir<ShoppingCartIcon className="size-4" /></button>
-                        </div>
-                    </div>
-                </div >
-            )}
+    if (!pizza) return (
+        <div className="flex flex-col justify-center items-center min-h-screen text-2xl text-center">
+            Pizza no encontrada (ID: {idStr} → {idNum})
+            <br />
+            <a href="/" className="text-blue-500 underline mt-4 block">← Volver a Home</a>
         </div>
-    )
+    );
+
+    const handleAgregar = () => {
+        agregarPizza({ id: pizza.id, name: pizza.name, price: pizza.price, img: pizza.img, ingredients: pizza.ingredients });
+    };
+
+    return (
+        <div className="flex justify-center items-center min-h-screen bg-amber-50 p-4">
+            <div className="flex flex-col lg:flex-row rounded-lg border-4 border-black shadow-2xl bg-white max-w-4xl w-full">
+                <img
+                    className="object-cover h-80 lg:h-96 rounded-t-lg lg:rounded-l-lg w-full lg:w-96 shadow-2xl"
+                    src={pizza.img}
+                    alt={pizza.name}
+                />
+
+                <div className="flex flex-col grow p-6 items-center space-y-4">
+                    <h1 className="text-3xl font-bold text-center text-gray-800">{pizza.name}</h1>
+
+                    <ul className="flex flex-wrap justify-center border-y-2 py-3 w-full text-center max-w-md">
+                        <span className="font-bold text-lg whitespace-nowrap mr-2">Ingredientes:</span>
+                        {pizza.ingredients.map((ingrediente, index) => (
+                            <li key={index} className="text-sm px-1 font-medium">
+                                {ingrediente}{index < pizza.ingredients.length - 1 ? ',' : ''}
+                            </li>
+                        ))}
+                    </ul>
+
+                    <p className="text-center text-gray-700 leading-relaxed max-w-prose">{pizza.desc}</p>
+
+                    <div className="w-full text-center py-3 border-y-2">
+                        <span className="text-2xl font-black text-green-600">Precio: {formatearPrecio(pizza.price)}</span>
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row gap-3 w-full justify-center">
+                        <Link to="/"><button className="bg-gray-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-600 transition-all flex items-center justify-center gap-2 shadow-lg">
+                            ← Volver
+                        </button></Link>
+                        <button
+                            onClick={handleAgregar}
+                            className="bg-green-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                        >
+                            Añadir al carrito <ShoppingCartIcon className="size-5" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
 }
