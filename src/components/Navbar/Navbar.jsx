@@ -1,8 +1,8 @@
 import { UserIcon, ShoppingCartIcon, KeyIcon, LockClosedIcon, LockOpenIcon } from "@heroicons/react/16/solid"
 import { formatearPrecio } from "../../utils/funciones";
-import { Link, NavLink } from "react-router-dom";
-import { useMyContext } from "../../context/CartContext";
-import { useUserContext } from "../../context/UserContext";
+import { NavLink } from "react-router-dom";
+import { useMyContext } from "../../hooks/useMyContext";
+import { useUserContext } from "../../hooks/useUserContext";
 
 export default function Navbar() {
     const { total, pizzas } = useMyContext();

@@ -1,8 +1,8 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useState } from 'react';
+
+export const CartContext = createContext();
 
 
-
-const CartContext = createContext();
 
 export const MyContextProvider = ({ children }) => {
     const [pizzas, setPizzas] = useState([]);
@@ -53,5 +53,3 @@ export const MyContextProvider = ({ children }) => {
         </CartContext.Provider>
     );
 };
-
-export const useMyContext = () => useContext(CartContext);

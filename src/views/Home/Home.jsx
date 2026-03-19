@@ -1,6 +1,6 @@
 import CardPizza from "../../components/CardPizza/CardPizza";
 import Header from "../../components/Header/Header";
-import { useApiContext } from "../../context/APIContext";
+import { useApiContext } from "../../hooks/useApiContext";
 
 export default function Home() {
 

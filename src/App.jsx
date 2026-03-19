@@ -9,13 +9,14 @@ import Footer from './components/Footer/Footer'
 import NotFound from './views/NotFound/NotFound'
 import Profile from './views/Profile/Profile'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { useUserContext } from './context/UserContext'
+import { useUserContext } from './hooks/useUserContext'
 
 
 
 function App() {
   const { token } = useUserContext()
-  console.log('App.jsx: token =', token)
+
+  
   return (
     <div className="min-h-screen grid grid-rows-[auto_1fr_auto]">
       <Navbar />

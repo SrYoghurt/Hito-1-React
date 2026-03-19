@@ -1,5 +1,5 @@
-import { useMyContext } from "../../context/CartContext";
-import { useUserContext } from "../../context/UserContext";
+import { useMyContext } from "../../hooks/useMyContext";
+import { useUserContext } from "../../hooks/useUserContext";
 import { formatearPrecio } from "../../utils/funciones";
 import { Link } from "react-router-dom";
 import CardCart from "./CardCart";

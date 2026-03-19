@@ -1,19 +1,19 @@
-import { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useEffect, useState } from 'react';
 
-const APIContext = createContext();
+export const APIContext = createContext();
 
 export const APIProvider = ({ children }) => {
     const [pizzas, setPizzas] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const consultarApi = useCallback(async () => {    // ← useCallback para memoizar
+    const consultarApi = useCallback(async () => {    
         try {
             setLoading(true);
             setError(null);
             const URL = 'http://localhost:5000/api/pizzas';
             const response = await fetch(URL);
 
-            if (!response.ok) {                          // ← VERIFICAR response.ok
+            if (!response.ok) {                         
                 throw new Error(`Error ${response.status}: ${response.statusText}`);
             }
 
@@ -42,5 +42,3 @@ export const APIProvider = ({ children }) => {
         </APIContext.Provider>
     );
 };
-
-export const useApiContext = () => useContext(APIContext);

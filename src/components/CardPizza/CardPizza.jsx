@@ -1,6 +1,6 @@
 import { ArrowTopRightOnSquareIcon, ShoppingCartIcon } from "@heroicons/react/16/solid";
 import { formatearPrecio } from "../../utils/funciones";
-import { useMyContext } from "../../context/CartContext";
+import { useMyContext } from "../../hooks/useMyContext";
 import { useNavigate } from "react-router-dom";
 
 export default function CardPizza({ nombre, precio, ingredientes, img, id }) {

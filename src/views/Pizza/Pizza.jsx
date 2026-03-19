@@ -1,8 +1,8 @@
-import { ArrowTopRightOnSquareIcon, ShoppingCartIcon } from "@heroicons/react/16/solid";
+import { ShoppingCartIcon } from "@heroicons/react/16/solid";
 import { formatearPrecio } from "../../utils/funciones";
-import { useMyContext } from "../../context/CartContext";  // ← AGREGAR
+import { useMyContext } from "../../hooks/useMyContext";
 import { Link, useParams } from "react-router-dom";
-import { useApiContext } from "../../context/APIContext";
+import { useApiContext } from "../../hooks/useApiContext";
 
 export default function Pizza() {
     const { pizzas, loading, error } = useApiContext();
