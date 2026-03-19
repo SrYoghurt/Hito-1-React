@@ -6,9 +6,42 @@ import CardCart from "./CardCart";
 
 export default function Cart() {
 
-  const { pizzas, incrementar, disminuir, total, cantidadTotal } = useMyContext();
+  const { pizzas, incrementar, disminuir, total, cantidadTotal, limpiarCarrito } = useMyContext();
   const { token } = useUserContext();
-
+  const handlePago = async () => {
+    if (!token) {
+      alert('Por favor inicia sesión para continuar');
+      return;
+    }
+    if (pizzas.length === 0) {
+      alert('Tu carrito está vacío');
+      return;
+    }
+    try {
+      await fetch('http://localhost:5000/api/checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          items: pizzas.map(pizza => ({
+            id: pizza.id,
+            name: pizza.name,
+            price: pizza.price,
+            quantity: pizza.count
+          })),
+          total: total,
+          cantidadTotal: cantidadTotal
+        })
+      });
+    } catch (_) {
+      // error de red ignorado intencionalmente (simulación)
+    }
+    limpiarCarrito();
+    alert('¡Pago procesado exitosamente! Gracias por tu compra.');
+    window.location.href = '/';
+  };
 
   return (
 
@@ -64,11 +97,7 @@ export default function Cart() {
               </button></Link>
               <button
                 disabled={!token}
-                onClick={() => {
-                  if (token) {
-                    alert(`¡Pago de ${formatearPrecio(total)} procesado! Gracias.`)
-                  }
-                }}
+                onClick={handlePago}
                 className={`flex-1 bg-amber rounded-sm px-4 py-3 font-bold text-black 
               transition-colors${!token ? 'bg-gray-400 cursor-not-allowed text-gray-600' : 'bg-green-600 hover:bg-green-700 text-white'}`}>
                 {token ? 'Proceder al pago →' : 'Inicia sesión para pagar'}

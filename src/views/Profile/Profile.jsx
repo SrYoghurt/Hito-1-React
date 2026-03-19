@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import { useUserContext } from '../../hooks/useUserContext';
 
 export default function Profile() {
+    const { usuario, handleLogout } = useUserContext();
     const [userData, setUserData] = useState({
         name: '',
         email: '',
@@ -43,7 +45,7 @@ export default function Profile() {
                             className="w-20 h-20 rounded-full mx-auto mb-4 border-2 border-amber-200"
                         />
                         <h1 className="text-2xl font-bold text-gray-800">{userData.name}</h1>
-                        <p className="text-amber-600">{userData.email}</p>
+                        <p className="text-amber-600">{usuario?.email || userData.email}</p>
                     </div>
 
                     <div className="space-y-4">
@@ -62,7 +64,10 @@ export default function Profile() {
                         <button className="w-full bg-amber-500 text-white py-2 px-4 rounded-md hover:bg-amber-600 transition-colors">
                             Editar Perfil
                         </button>
-                        <button className="w-full bg-gray-200 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-300 transition-colors">
+                        <button
+                            onClick={handleLogout}
+                            className="w-full bg-gray-200 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-300 transition-colors"
+                        >
                             Cerrar Sesión
                         </button>
                     </div>
